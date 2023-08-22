@@ -1,22 +1,55 @@
-from flask import Flask, request, jsonify, redirect, url_for
+#TODO: rellamar presesnter a los script de .js
+#TODO: ver como usar boostrap.
+
+#==============================================
+# IMPORTS
+#==============================================
+from flask import Flask, request, jsonify
+
 from views import views 
+from auth import auth
 
-#request, jsonify, render_template, redirect, views, url_for
-#from contextlib import closing
-#import sqlite3
+import sqlite3
+from contextlib import closing
 
+#==============================================
+# CLASS
+#==============================================
+class DefinitionControler:
+    def __init__(connection):
+        self.connection = sqlite3.connect("dictionary.db")
+
+    def insert_definition(self, word, definition):
+        #TODO: Catchear exceptions.
+        #TODO: RESOLVER LA LOGICA AQUI   
+        self.connection.execute("INSERT INTO words VALUES (?, ?)", (word, definition))
+        self.connection.commit()
+        return None  
+    
+    def close(self):
+        self.connection.close()
+
+    def get_definitions(self, word):
+        self.connection.execute("SELECT * FROM words WHERE word=?", (word,))
+        print((self.connection.fetchall()))
+        return None
+#==============================================
+# API
+#==============================================
 app = Flask(__name__)
 app.debug = True
 
 app.register_blueprint(views, url_prefix="/")
 
-@app.route('/post_definition', methods=['POST'])
+controller = DefinitionControler()
+
+@app.route('/post_definition', methods=['GET', 'POST'])
 def post_definition():
+    #TODO resolver el mock
     definition = request.json.get('definition')
-    print("Definition:\n")
-    print(definition)
-    print("\n\n\n")
-    return redirect(url_for('views.lobby'))
+    controller.insert_deinition("mock_word", definition)
+    controller.get_definitions("mock_word")
+    return jsonify(status="definition received"), 200 
 
 
 if __name__ == '__main__':
@@ -24,27 +57,3 @@ if __name__ == '__main__':
 
 
 
-
-
-
-
-
-
-
-# @app.route('/post_definition', methods=['POST'])
-# def post_definition():
-#     definition = request.json.get('definition')
-#     word = 'Mono' # This should be replaced with the word you want to insert
-
-#     with closing(create_connection()) as connection:
-#         cursor = connection.cursor()
-#         cursor.execute("INSERT INTO words VALUES (?, ?)", (word, definition))
-#         connection.commit()
-#         cursor.execute("SELECT * FROM words WHERE word=?", (word,))
-#         print((cursor.fetchall()))
-#         # Process the results if needed
-#     return redirect('/definition_received')
-
-# @app.route('/definition_received') # Corrected spelling here
-# def definition_received():
-#     return render_template('waitingHall.html')
