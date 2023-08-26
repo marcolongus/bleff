@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bleff - Inventando Definiciones</title>
+    <style>
+        /* Estilos CSS aquí */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .word {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .definition-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .submit-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bleff - Inventando Definiciones</h1>
+        <p>¡Inventa definiciones para palabras extrañas y diviértete!</p>
+        <div class="word">Palabra del turno: <span id="current-word">Palabra</span></div>
+        <input type="text" id="definition-input" class="definition-input" placeholder="Ingresa tu definición aquí">
+        <button id="submit-button" class="submit-button">Enviar Definición</button>
+    </div>
+
+    <script>
+        // JavaScript para manejar la interacción con el juego
+        const currentWordElement = document.getElementById('current-word');
+        const definitionInput = document.getElementById('definition-input');
+        const submitButton = document.getElementById('submit-button');
+
+        // Función para cambiar la palabra actual (debe implementarse en tu lógica del juego)
+        function changeCurrentWord(newWord) {
+            currentWordElement.textContent = newWord;
+            definitionInput.value = ''; // Limpiar el input
+        }
+
+        // Evento para enviar la definición
+        submitButton.addEventListener('click', () => {
+            const definition = definitionInput.value.trim();
+            if (definition !== '') {
+                // Aquí puedes implementar la lógica para procesar la definición enviada por el jugador
+                console.log('Definición enviada:', definition);
+                // Luego, cambia a la siguiente palabra
+                changeCurrentWord('NuevaPalabra'); // Cambia esto a la próxima palabra del juego
+            }
+        });
+
+        // Inicializar la primera palabra al cargar la página (debe implementarse en tu lógica del juego)
+        changeCurrentWord('PalabraInicial'); // Cambia esto a la primera palabra del juego
+    </script>
+</body>
+</html>
