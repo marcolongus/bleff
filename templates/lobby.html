@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definitions Game - Waiting Room</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lobby/styles.css') }}">
+
+</head>
+<body>
+    <header>
+        <h1>Word Definitions Game</h1>
+        <p>Waiting Room</p>
+    </header>
+    
+    <main>
+        <section class="wait-room">
+            <h2>Welcome to the Waiting Room</h2>
+            <p>Please wait while other players submit their definitions...</p>
+            <div class="loading-spinner"></div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 Your Game Name. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='lobby/script.js') }}"></script>
+</body>
+</html>
