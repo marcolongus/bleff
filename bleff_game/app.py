@@ -6,6 +6,8 @@ from controllers.definition_controller import DefinitionController
 
 app = Flask(__name__)
 
+controller = DefinitionController()
+
 @app.route('/')
 def landing():
     return render_template('main.html')
@@ -13,7 +15,7 @@ def landing():
 
 @app.route('/<game_name>')
 def game_view(game_name):
-    word = "LIBERTAD"
+    word = controller.provide_word_to_define()
     return render_template('definition_input.html', game_name=game_name, word=word)
 
 @app.route('/submit_definition', methods=['POST'])
@@ -22,7 +24,6 @@ def submit_definition():
     word = data['word']
     definition = data['definition']
     print(word, definition)
-    controller = DefinitionController()
     controller.save_definition(word, definition)
     return jsonify({'status': 'success'})
 

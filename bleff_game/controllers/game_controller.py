@@ -6,3 +6,4 @@ class GameController:
 
     def create_game(self):
         GameModel.create_game(self.name)
+

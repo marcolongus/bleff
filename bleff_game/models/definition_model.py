@@ -9,23 +9,14 @@ class DefinitionModel:
     """
     def __init__(self, database='definitions.db') -> None:
         self.database = database
-        self.conn = sqlite3.connect(database)
-    
-    def verify_connectivity(self):
-        ...
-
-    def commit(self):
-        self.conn.commit()
-
-    def close(self):
-        self.conn.close()
-
+        
     def add_definition(self, word, definition):
         print(word, definition)
-        cursor = self.conn.cursor()
+        connection = sqlite3.connect(self.database)
+        cursor = connection.cursor()
         cursor.execute("INSERT INTO definitions (word, definition) VALUES (?, ?)", (word, definition))
-        self.commit()
-        cursor.close()
+        connection.commit()
+        connection.close()
     
 
 
