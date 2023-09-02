@@ -1,5 +1,4 @@
-from bleff_game.models.game_model import GameModel
-
+from models.game_model import GameModel
 
 class GameController:
     def __init__(self, name):

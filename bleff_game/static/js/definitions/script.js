@@ -1,9 +1,8 @@
 $(document).ready(function(){
-    $("form").on("submit", function(event){
+    $("#send-definition").on("submit", function(event){
         event.preventDefault();
-
-        const word = $("input[name='word']").val();
-        const definition = $("input[name='definition']").val();
+        const word = $("#word-button").text();                
+        const definition = $("#definition").val();
 
         $.ajax({
             url: '/submit_definition',

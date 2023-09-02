@@ -1,6 +1,12 @@
 import sqlite3
 
+# 
+
 class GameModel:
+    """ Logica de base de datos relacionada a la partida
+
+        Si no existe la table games, la crea. 
+    """
 
     @staticmethod
     def init_db():

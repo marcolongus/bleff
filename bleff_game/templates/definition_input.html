@@ -5,6 +5,15 @@
     <title>{{ game_name }}</title>
 </head>
 <body>
-    <h1>Define: {{ word }}</h1>
+    <div class="container">
+        <h1>Bienvenido al Bleff!</h1>
+        <p>Escribe la definición que mejor te parezca para la siguiente palabra.</p>
+        <button class="start-button" id="word-button"> {{word}} </button>
+        <form id="send-definition">
+            <textarea id="definition" cols="80" rows="10"></textarea>
+            <button type="submit" id="enter"> Enviar definición </button>
+        </form>            
+      </div>
+      <script src ="{{url_for('static', filename='js/definitions/script.js') }}"> </script>
 </body>
 </html>

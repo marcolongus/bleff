@@ -1,10 +1,14 @@
 import sqlite3
 from flask import Flask, render_template, request, jsonify
 
-from bleff_game.controllers.game_controller import GameController
+from controllers.game_controller import GameController
 from controllers.definition_controller import DefinitionController
 
 app = Flask(__name__)
+
+@app.route('/')
+def landing():
+    return render_template('main.html')
 
 
 @app.route('/<game_name>')
@@ -17,13 +21,12 @@ def submit_definition():
     data = request.json
     word = data['word']
     definition = data['definition']
-    controller = DefinitionController(word, definition)
-    controller.save_definition()
+    print(word, definition)
+    controller = DefinitionController()
+    controller.save_definition(word, definition)
     return jsonify({'status': 'success'})
 
-@app.route('/')
-def landing():
-    return render_template('main.html')
+
 
 @app.route('/create_game', methods=['POST'])
 def create_game():
