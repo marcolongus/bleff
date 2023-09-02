@@ -4,35 +4,18 @@
 #==============================================
 # IMPORTS
 #==============================================
+import sys
+
+sys.path.insert(1, "controllers")
+sys.path.insert(2, "models")
+
 from flask import Flask, request, jsonify
 
 from views import views 
 from auth import auth
 
-import sqlite3
-from contextlib import closing
+from DefinitionController import DefinitionController
 
-#==============================================
-# CLASS
-#==============================================
-class DefinitionControler:
-    def __init__(connection):
-        self.connection = sqlite3.connect("dictionary.db")
-
-    def insert_definition(self, word, definition):
-        #TODO: Catchear exceptions.
-        #TODO: RESOLVER LA LOGICA AQUI   
-        self.connection.execute("INSERT INTO words VALUES (?, ?)", (word, definition))
-        self.connection.commit()
-        return None  
-    
-    def close(self):
-        self.connection.close()
-
-    def get_definitions(self, word):
-        self.connection.execute("SELECT * FROM words WHERE word=?", (word,))
-        print((self.connection.fetchall()))
-        return None
 #==============================================
 # API
 #==============================================
@@ -41,14 +24,15 @@ app.debug = True
 
 app.register_blueprint(views, url_prefix="/")
 
-controller = DefinitionControler()
+controller = DefinitionController()
 
 @app.route('/post_definition', methods=['GET', 'POST'])
 def post_definition():
     #TODO resolver el mock
     definition = request.json.get('definition')
-    controller.insert_deinition("mock_word", definition)
-    controller.get_definitions("mock_word")
+    word = request.json.get('word')
+    controller.insert_definition(word, definition)
+    #controller.get_definitions(word)
     return jsonify(status="definition received"), 200 
 
 

@@ -4,7 +4,7 @@ views = Blueprint("views", __name__)
 
 @views.route("/")
 def home():
-	my_word = "Libertad"
+	my_word = "COSO"
 	return render_template("main.html", word=my_word)
 
 @views.route("/lobby/")
